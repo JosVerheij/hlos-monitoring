@@ -21,7 +21,7 @@ services:
       - traefik.docker.network=proxy
       - traefik.docker.port=8086
     environment:
-      - INFLUXDB_DB: telegraf
+      INFLUXDB_DB: telegraf
     volumes:
       - influxdb:/var/lib/influxdb
       # - ${PWD}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
