@@ -1,22 +1,22 @@
 version: '3'
 
 services:
-  influxdb:
-    hostname: influxdb
-    image: influxdb:alpine
-    restart: always
-    labels:
-      - traefik.enable=true
-      - traefik.backend=influxdb
-      - traefik.frontend.rule=Host:influxdb.josverheij.nl
-      - traefik.docker.network=proxy
-      - traefik.docker.port=8086
-    volumes:
-      - influxdb:/var/lib/influxdb
-      - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
-    networks:
-      - internal
-      - proxy
+  # influxdb:
+  #   hostname: influxdb
+  #   image: influxdb:alpine
+  #   restart: always
+  #   labels:
+  #     - traefik.enable=true
+  #     - traefik.backend=influxdb
+  #     - traefik.frontend.rule=Host:influxdb.josverheij.nl
+  #     - traefik.docker.network=proxy
+  #     - traefik.docker.port=8086
+  #   volumes:
+  #     - influxdb:/var/lib/influxdb
+  #     - ${PWD}/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+  #   networks:
+  #     - internal
+  #     - proxy
 
   grafana:
     hostname: grafana
@@ -39,14 +39,8 @@ services:
   telegraf:
     image: telegraf:alpine
     restart: always
-    depends_on:
-      - influxdb
-    environment:
-      INFLUXDB_DB: ${INFLUXDB_DB}
-      INFLUXDB_USER: ${INFLUXDB_USER}
-      INFLUXDB_PW: ${INFLUXDB_PW}
     volumes:
-      - ${PWD}/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - ${PWD}/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - internal
