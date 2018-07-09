@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  proxy:
+    external: true
+  internal:
+    external: false
+
+volumes:
+  influxdb:
+
+services:
+  influxdb:
+    hostname: influxdb
+    image: influxdb:alpine
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.backend=influxdb
+      - traefik.frontend.rule=Host:influxdb.hippoline.domain
+      - traefik.docker.network=proxy
+      - traefik.docker.port=8086
+    environment:
+      - INFLUXDB_DB: telegraf
+    volumes:
+      - influxdb:/var/lib/influxdb
+      - ${PWD}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    ports:
+      - 8086:8086
+    networks:
+      - internal
+      - proxy
