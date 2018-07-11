@@ -38,6 +38,8 @@ services:
       - traefik.port=3000
     volumes:
       - grafana:/var/lib/grafana
+    environment:
+      GF_SMTP_ENABLED: true
     networks:
       - internal
       - proxy
