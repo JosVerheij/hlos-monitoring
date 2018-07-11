@@ -39,7 +39,7 @@ services:
     volumes:
       - grafana:/var/lib/grafana
     environment:
-      GF_ROOT_URL: 'monitor.hippoline.nl'
+      GF_SERVER_ROOT_URL: 'monitor.hippoline.nl'
       GF_SMTP_ENABLED: 'true'
       GF_SMTP_HOST: 'smtp-relay.gmail.com:587'
       GF_SMTP_FROM_ADDRESS: 'monitor@hippoline.nl'
