@@ -39,7 +39,7 @@ services:
     volumes:
       - grafana:/var/lib/grafana
     environment:
-      GF_SMTP_ENABLED: true
+      GF_SMTP_ENABLED: 'true'
     networks:
       - internal
       - proxy
